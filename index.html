@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rock paper scissors</title>
+</head>
+<body>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin: auto; width: 50%; border: 2px solid red;">
+        <h1>Rock Paper Scissors</h1>
+        <p>waiting for player input...</p>
+        <button class="selection" id="0">Rock</button>
+        <button class="selection" id="1">Paper</button>
+        <button class="selection" id="2">Scissors</button>
+    </div>
+
+    <script>
+        function getComputerChoice() {
+            let numOfChoice = Math.floor(Math.random() * 3);
+            let computerChoice = possibleChoices[numOfChoice];
+            console.log(`Computer picks ${computerChoice.name}`)
+            return computerChoice
+        }
+
+
+        function checkWinner(player1, player2) {
+            if (player1.name === player2.name) {updateGame("draw")}
+            else if (player2.name === player1.beats) {updateGame("first won")}
+            else {updateGame("second won")}
+        }
+
+        function displayWinner(index) {
+            console.log(index)
+        } 
+
+        function updateGame(results) {
+            if (results === "draw") {
+                console.log("it's a draw")
+            }
+            else if (results == "first won") {
+                console.log("user won");
+                userPoints++
+            }
+            else {
+                console.log("computer won")
+                computerPoints++
+            }
+            
+            console.log(`user: ${userPoints}, computer: ${computerPoints}`)
+        }
+
+        //function game()
+
+        const possibleChoices = [
+            {
+                name: "rock",
+                beats: "scissors"
+            },
+
+            {
+                name: "paper",
+                beats: "rock"
+            },
+
+            {
+                name: "scissors",
+                beats: "paper"
+            },
+
+        ]
+        
+        const selections = document.querySelectorAll(".selection");
+        let userPoints = 0;
+        let computerPoints = 0;
+
+        selections.forEach(button => {
+            button.addEventListener('click', e => {
+                const userChoice = possibleChoices[button.id];
+                console.log(`User picks ${userChoice.name}`);
+                const computerChoice = getComputerChoice();
+                checkWinner(userChoice, computerChoice);
+            })
+        }
+        ) 
+
+        
+    </script>
+</body>
+</html>
